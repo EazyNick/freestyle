@@ -17,3 +17,12 @@ Dependencies are installed in the local virtual environment:
 ```
 
 Edit `env.env` to choose the target folder, delays, confidence, and loop behavior.
+
+## Structure
+
+- `main.py`: entry point
+- `image_clicker/config.py`: environment configuration
+- `image_clicker/repository.py`: image folder and file ordering
+- `image_clicker/screen.py`: screen image detection and clicking
+- `image_clicker/runner.py`: automation loop
+- `image_clicker/logging_setup.py`: console and file logging

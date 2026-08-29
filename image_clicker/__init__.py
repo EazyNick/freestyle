@@ -1,0 +1,1 @@
+"""Image click automation package."""
