@@ -18,8 +18,13 @@ class AppConfig:
     start_delay: float
     confidence: float
     retry_seconds: float
+    search_attempts_per_image: int
     click_interval: float
     move_duration: float
+    mouse_park_x: int
+    mouse_park_y: int
+    mouse_wiggle_pixels: int
+    screen_refresh_delay: float
     pyautogui_pause: float
     dry_run: bool
     failsafe: bool
@@ -42,8 +47,13 @@ class AppConfig:
             start_delay=_get_float("START_DELAY", 3.0),
             confidence=_get_float("CONFIDENCE", 0.85),
             retry_seconds=_get_float("RETRY_SECONDS", 5.0),
+            search_attempts_per_image=_get_int("SEARCH_ATTEMPTS_PER_IMAGE", 1),
             click_interval=_get_float("CLICK_INTERVAL", 1.0),
             move_duration=_get_float("MOVE_DURATION", 0.1),
+            mouse_park_x=_get_int("MOUSE_PARK_X", 10),
+            mouse_park_y=_get_int("MOUSE_PARK_Y", 500),
+            mouse_wiggle_pixels=_get_int("MOUSE_WIGGLE_PIXELS", 1),
+            screen_refresh_delay=_get_float("SCREEN_REFRESH_DELAY", 0.05),
             pyautogui_pause=_get_float("PYAUTOGUI_PAUSE", 0.05),
             dry_run=_get_bool("DRY_RUN", False),
             failsafe=_get_bool("FAILSAFE", True),
@@ -58,6 +68,9 @@ class AppConfig:
 
         if self.order_mode not in {"name", "modified"}:
             raise ValueError("ORDER_MODE must be either 'name' or 'modified'")
+
+        if self.search_attempts_per_image < 1:
+            raise ValueError("SEARCH_ATTEMPTS_PER_IMAGE must be at least 1")
 
         if not self.image_extensions:
             raise ValueError("IMAGE_EXTENSIONS must include at least one extension")
@@ -75,6 +88,13 @@ def _get_float(name: str, default: float) -> float:
     if value is None or value.strip() == "":
         return default
     return float(value)
+
+
+def _get_int(name: str, default: int) -> int:
+    value = os.getenv(name)
+    if value is None or value.strip() == "":
+        return default
+    return int(value)
 
 
 def _get_extensions(name: str, default: str) -> set[str]:

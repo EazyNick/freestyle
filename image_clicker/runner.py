@@ -74,7 +74,8 @@ class AutomationRunner:
         self.logger.info("Logging to %s", self.config.log_file)
         self.logger.info(
             "Settings: image_root=%s target_folder=%s click_all_folders=%s loop_forever=%s "
-            "order_mode=%s confidence=%.2f retry_seconds=%.1f click_interval=%.1f dry_run=%s failsafe=%s",
+            "order_mode=%s confidence=%.2f retry_seconds=%.1f search_attempts_per_image=%s "
+            "click_interval=%.1f dry_run=%s failsafe=%s",
             self.config.image_root,
             self.config.target_folder,
             self.config.click_all_folders,
@@ -82,6 +83,7 @@ class AutomationRunner:
             self.config.order_mode,
             self.config.confidence,
             self.config.retry_seconds,
+            self.config.search_attempts_per_image,
             self.config.click_interval,
             self.config.dry_run,
             self.config.failsafe,
